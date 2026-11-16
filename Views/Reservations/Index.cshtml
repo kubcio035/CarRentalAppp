@@ -1,0 +1,105 @@
+﻿@model IEnumerable<CarRentalApp.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Zarządzanie Rezerwacjami";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-6 fw-bold text-dark mb-0">Rezerwacje</h1>
+            <p class="text-muted">Historia i aktualne wynajmy pojazdów</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary rounded-pill px-4 shadow-sm">
+            <i class="bi bi-calendar-plus me-2"></i>Nowa Rezerwacja
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3 text-muted fw-bold text-uppercase fs-7">Samochód</th>
+                        <th class="py-3 text-muted fw-bold text-uppercase fs-7">Okres wynajmu</th>
+                        <th class="py-3 text-muted fw-bold text-uppercase fs-7 text-center">Czas trwania</th>
+                        <th class="py-3 text-muted fw-bold text-uppercase fs-7">Całkowity koszt</th>
+                        <th class="text-end pe-4 py-3 text-muted fw-bold text-uppercase fs-7">Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var duration = (item.EndDate - item.StartDate).Days;
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-dark text-white rounded-3 p-2 me-3">
+                                        <i class="bi bi-car-front"></i>
+                                    </div>
+                                    <div>
+                                        <span class="fw-bold d-block text-dark">@item.Car?.Make @item.Car?.Model</span>
+                                        <small class="text-muted">ID: #@item.Id</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <span class="badge bg-light text-dark border p-2">
+                                        <i class="bi bi-calendar-check text-primary me-1"></i> @item.StartDate.ToShortDateString()
+                                    </span>
+                                    <i class="bi bi-arrow-right mx-2 text-muted"></i>
+                                    <span class="badge bg-light text-dark border p-2">
+                                        <i class="bi bi-calendar-x text-danger me-1"></i> @item.EndDate.ToShortDateString()
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span class="fw-semibold">@(duration <= 0 ? 1 : duration) dni</span>
+                            </td>
+                            <td>
+                                <span class="h5 fw-bold text-success mb-0">@item.TotalCost.ToString("N2") zł</span>
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary rounded-start-pill px-3">
+                                        <i class="bi bi-search"></i>
+                                    </a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger rounded-end-pill px-3">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                <i class="bi bi-calendar-x fs-1 d-block mb-2"></i>
+                                Brak zarejestrowanych rezerwacji.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .fs-7 {
+        font-size: 0.75rem;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(13, 110, 253, 0.02);
+    }
+
+    .badge {
+        font-weight: 500;
+    }
+</style>

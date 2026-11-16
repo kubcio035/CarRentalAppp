@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CarRentalApp.Models.ReportViewModel>
+
+@{
+    ViewData["Title"] = "Raport Finansowy";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">💰 Raport Finansowy</h1>
+
+    <div class="alert alert-info">
+        Poniżej znajduje się zestawienie przychodów z podziałem na kategorie pojazdów.
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Kategoria</th>
+                <th>Liczba Wypożyczeń</th>
+                <th>Łączny Przychód (PLN)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CategoryName</td>
+                    <td>@item.ReservationCount</td>
+                    <td class="fw-bold text-success">@item.TotalRevenue.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="table-secondary fw-bold">
+                <td colspan="2" class="text-end">SUMA CAŁKOWITA:</td>
+                <td>@Model.Sum(x => x.TotalRevenue).ToString("C")</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <a asp-action="Index" class="btn btn-secondary mt-3">Powrót do listy</a>
+</div>

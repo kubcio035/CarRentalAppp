@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CarRental Pro</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CarRentalApp.styles.css" asp-append-version="true" />
+    <style>
+        /* Szybki tuning wizualny */
+        .navbar-brand {
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+            .nav-link:hover {
+                color: #0d6efd !important;
+            }
+
+        .footer {
+            background-color: #f8f9fa;
+        }
+
+        .admin-link {
+            background: rgba(220, 53, 69, 0.1);
+            border-radius: 8px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom shadow-sm mb-3 py-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-car-front-fill text-primary"></i> CAR<span class="text-primary">RENTAL</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Categories" asp-action="Index">
+                                <i class="bi bi-tags"></i> Kategorie
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Cars" asp-action="Index">
+                                <i class="bi bi-speedometer2"></i> Samochody
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Reservations" asp-action="Index">
+                                <i class="bi bi-calendar-check"></i> Rezerwacje
+                            </a>
+                        </li>
+
+                        @using Microsoft.AspNetCore.Identity
+                        @inject SignInManager<IdentityUser> SignInManager
+                        @inject UserManager<IdentityUser> UserManager
+
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item admin-link">
+                                <a class="nav-link text-danger fw-bold" asp-controller="Reservations" asp-action="Report">
+                                    <i class="bi bi-graph-up-arrow"></i> RAPORTY
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-5">
+            <div class="animate-in">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted py-4 mt-auto">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-6 text-md-start">
+                    &copy; 2025 - <strong>CarRental Pro</strong> - System Wynajmu Aut
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-decoration-none text-muted me-3">Prywatność</a>
+                    <i class="bi bi-facebook mx-2"></i>
+                    <i class="bi bi-instagram mx-2"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

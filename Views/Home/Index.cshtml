@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Strona Główna";
+}
+
+<div class="container-fluid py-5 bg-light border-bottom shadow-sm" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-3 fw-bold text-dark mb-4">Znajdź idealne auto na <span class="text-primary">każdą trasę</span></h1>
+                <p class="lead mb-5 text-muted">Szybki wynajem, przejrzyste zasady i najlepsze ceny w mieście. Twoja przygoda zaczyna się tutaj.</p>
+                <div class="d-grid gap-3 d-md-flex justify-content-md-start">
+                    <a asp-controller="Cars" asp-action="Index" class="btn btn-primary btn-lg px-4 me-md-2 rounded-pill shadow">Przeglądaj flotę</a>
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">Dołącz do nas</a>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block text-center">
+                <i class="bi bi-speedometer2 text-primary" style="font-size: 15rem; opacity: 0.1;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3 text-center">
+        <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 rounded-circle p-3 shadow-sm">
+                🚗
+            </div>
+            <h3 class="fs-4">Szeroki wybór</h3>
+            <p class="text-muted">Od miejskich hatchbacków po luksusowe limuzyny. Mamy wszystko, czego potrzebujesz.</p>
+        </div>
+        <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 rounded-circle p-3 shadow-sm">
+                🛡️
+            </div>
+            <h3 class="fs-4">Pełne ubezpieczenie</h3>
+            <p class="text-muted">Podróżuj bez stresu. Wszystkie nasze auta posiadają pełny pakiet ubezpieczeń.</p>
+        </div>
+        <div class="feature col">
+            <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 rounded-circle p-3 shadow-sm">
+                ⚡
+            </div>
+            <h3 class="fs-4">Szybka rezerwacja</h3>
+            <p class="text-muted">Zarezerwuj auto w mniej niż 2 minuty dzięki naszemu intuicyjnemu systemowi online.</p>
+        </div>
+    </div>
+</div>
